@@ -22,6 +22,7 @@ export default function ProblemSection() {
   return (
     <section
       className="section"
+      id="problem"
       style={{
         borderTop: "1px solid rgba(255,255,255,0.05)",
         background: "linear-gradient(180deg, transparent 0%, rgba(91,143,255,0.04) 50%, transparent 100%)",
@@ -31,32 +32,32 @@ export default function ProblemSection() {
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
           <span className="section-label">The Problem</span>
-          <h2 style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 700 }}>
+          <h2 style={{ fontSize: "clamp(1.8rem, 5vw, 3rem)", fontWeight: 700 }}>
             Legacy stacks are a{" "}
             <span style={{ color: "var(--accent)" }}>revenue liability.</span>
           </h2>
-          <p style={{ color: "var(--muted)", marginTop: "1rem", maxWidth: 560, margin: "1rem auto 0" }}>
+          <p style={{ color: "var(--muted)", marginTop: "1rem", maxWidth: 560, margin: "1rem auto 0", fontSize: "0.95rem", lineHeight: 1.7 }}>
             The incumbent CRM vendors were built for generic sales teams.
             You run a brokerage. The mismatch is costing you deposits every day.
           </p>
         </div>
 
-        {/* Comparison grid */}
+        {/* Comparison grid — stacks on mobile */}
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "1fr auto 1fr",
+            gridTemplateColumns: "1fr",
             gap: "0",
-            alignItems: "stretch",
           }}
+          className="problem-compare-grid"
         >
           {/* Legacy column */}
           <div
             className="glass"
             style={{
-              padding: "2rem",
-              borderRadius: "12px 0 0 12px",
-              borderRight: "none",
+              padding: "clamp(1.25rem, 4vw, 2rem)",
+              borderRadius: "12px 12px 0 0",
+              borderBottom: "none",
               background: "rgba(255,60,60,0.04)",
               borderColor: "rgba(255,80,80,0.12)",
             }}
@@ -86,23 +87,28 @@ export default function ProblemSection() {
             </ul>
           </div>
 
-          {/* VS divider */}
+          {/* VS divider — horizontal on mobile */}
           <div
             style={{
               display: "flex",
-              flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              padding: "0 1.5rem",
-              position: "relative",
+              padding: "0",
+              background: "rgba(255,255,255,0.018)",
+              border: "1px solid rgba(255,255,255,0.06)",
+              borderTop: "none",
+              borderBottom: "none",
             }}
+            className="problem-vs-divider"
           >
             <div
               style={{
-                width: 1,
+                width: "100%",
+                height: 1,
                 flex: 1,
-                background: "linear-gradient(180deg, transparent, rgba(255,255,255,0.1), transparent)",
+                background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)",
               }}
+              className="problem-vs-line"
             />
             <div
               style={{
@@ -118,17 +124,18 @@ export default function ProblemSection() {
                 fontSize: "0.65rem",
                 color: "var(--muted)",
                 flexShrink: 0,
-                margin: "1rem 0",
               }}
             >
               VS
             </div>
             <div
               style={{
-                width: 1,
+                width: "100%",
+                height: 1,
                 flex: 1,
-                background: "linear-gradient(180deg, transparent, rgba(255,255,255,0.1), transparent)",
+                background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)",
               }}
+              className="problem-vs-line"
             />
           </div>
 
@@ -136,9 +143,9 @@ export default function ProblemSection() {
           <div
             className="glass"
             style={{
-              padding: "2rem",
-              borderRadius: "0 12px 12px 0",
-              borderLeft: "none",
+              padding: "clamp(1.25rem, 4vw, 2rem)",
+              borderRadius: "0 0 12px 12px",
+              borderTop: "none",
               background: "rgba(91,143,255,0.05)",
               borderColor: "rgba(91,143,255,0.18)",
             }}
@@ -171,6 +178,39 @@ export default function ProblemSection() {
           <a href="#watch-demo" className="btn-cta">See It in Action</a>
         </div>
       </div>
+
+      {/* Responsive: desktop = 3-col side-by-side */}
+      <style>{`
+        @media (min-width: 640px) {
+          .problem-compare-grid {
+            grid-template-columns: 1fr auto 1fr !important;
+          }
+          .problem-compare-grid > div:first-child {
+            border-radius: 12px 0 0 12px !important;
+            border-bottom: unset !important;
+            border-right: none !important;
+          }
+          .problem-vs-divider {
+            flex-direction: column !important;
+            border-top: unset !important;
+            border-bottom: unset !important;
+            border-left: none !important;
+            border-right: none !important;
+            padding: 0 1.5rem !important;
+          }
+          .problem-vs-line {
+            width: 1px !important;
+            height: 100% !important;
+            flex: 1 !important;
+            background: linear-gradient(180deg, transparent, rgba(255,255,255,0.1), transparent) !important;
+          }
+          .problem-compare-grid > div:last-child {
+            border-radius: 0 12px 12px 0 !important;
+            border-top: unset !important;
+            border-left: none !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

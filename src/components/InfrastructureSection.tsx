@@ -95,8 +95,9 @@ export default function InfrastructureSection() {
         {/* Column labels */}
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 56px 1fr",
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "0.75rem 2rem",
             maxWidth: 960,
             margin: "0 auto 1rem",
             padding: "0 0.5rem",
@@ -108,7 +109,6 @@ export default function InfrastructureSection() {
               Legacy CRM Stack
             </span>
           </div>
-          <div />
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
             <div style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--accent)", boxShadow: "0 0 8px var(--accent)" }} />
             <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--accent-light)" }}>
@@ -135,63 +135,66 @@ export default function InfrastructureSection() {
               onMouseEnter={() => setActiveRow(i)}
               onMouseLeave={() => setActiveRow(null)}
               style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 56px 1fr",
                 borderBottom: i < pairs.length - 1 ? "1px solid rgba(255,255,255,0.045)" : "none",
                 transition: "background 0.25s ease",
                 background: activeRow === i ? "rgba(79,127,255,0.04)" : "transparent",
                 cursor: "default",
               }}
             >
-              {/* Legacy cell */}
-              <div
-                style={{
-                  padding: "1rem 1.5rem",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.75rem",
-                  borderRight: "1px solid rgba(255,255,255,0.04)",
-                  transition: "background 0.25s ease",
-                  background: activeRow === i ? "rgba(220,60,60,0.05)" : "transparent",
-                }}
-              >
-                <span style={{ color: activeRow === i ? "#f66" : "#c44", fontSize: "0.8rem", flexShrink: 0, transition: "color 0.2s" }}>✕</span>
-                <span style={{ fontSize: "0.85rem", lineHeight: 1.5, color: activeRow === i ? "#aa7070" : "#6a5050", transition: "color 0.25s" }}>
-                  {pair.legacy}
-                </span>
-              </div>
-
-              {/* VS divider */}
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: activeRow === i ? "rgba(79,127,255,0.08)" : "rgba(255,255,255,0.02)",
-                  transition: "background 0.25s ease",
-                }}
-              >
-                <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.55rem", letterSpacing: "0.05em", color: activeRow === i ? "var(--accent-light)" : "var(--muted-2)", textTransform: "uppercase", transition: "color 0.25s" }}>
-                  vs
+              {/* Mobile: stacked layout */}
+              <div className="compare-inner">
+                {/* Legacy cell */}
+                <div
+                  className="compare-cell-legacy"
+                  style={{
+                    padding: "0.7rem 1rem",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.6rem",
+                    transition: "background 0.25s ease",
+                    background: activeRow === i ? "rgba(220,60,60,0.05)" : "transparent",
+                    borderBottom: "1px solid rgba(255,255,255,0.04)",
+                  }}
+                >
+                  <span style={{ color: activeRow === i ? "#f66" : "#c44", fontSize: "0.8rem", flexShrink: 0, transition: "color 0.2s" }}>✕</span>
+                  <span style={{ fontSize: "0.82rem", lineHeight: 1.5, color: activeRow === i ? "#aa7070" : "#6a5050", transition: "color 0.25s" }}>
+                    {pair.legacy}
+                  </span>
                 </div>
-              </div>
 
-              {/* Callisto cell */}
-              <div
-                style={{
-                  padding: "1rem 1.5rem",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.75rem",
-                  borderLeft: "1px solid rgba(255,255,255,0.04)",
-                  transition: "background 0.25s ease",
-                  background: activeRow === i ? "rgba(79,127,255,0.06)" : "transparent",
-                }}
-              >
-                <span style={{ color: activeRow === i ? "#7af" : "var(--accent)", fontSize: "0.8rem", flexShrink: 0, filter: activeRow === i ? "drop-shadow(0 0 6px var(--accent))" : "none", transition: "all 0.2s" }}>✓</span>
-                <span style={{ fontSize: "0.85rem", lineHeight: 1.5, color: activeRow === i ? "var(--white)" : "var(--off-white)", transition: "color 0.25s" }}>
-                  {pair.callisto}
-                </span>
+                {/* VS divider — desktop only */}
+                <div
+                  className="compare-cell-vs"
+                  style={{
+                    display: "none",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: activeRow === i ? "rgba(79,127,255,0.08)" : "rgba(255,255,255,0.02)",
+                    transition: "background 0.25s ease",
+                  }}
+                >
+                  <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.55rem", letterSpacing: "0.05em", color: activeRow === i ? "var(--accent-light)" : "var(--muted-2)", textTransform: "uppercase", transition: "color 0.25s" }}>
+                    vs
+                  </div>
+                </div>
+
+                {/* Callisto cell */}
+                <div
+                  className="compare-cell-callisto"
+                  style={{
+                    padding: "0.7rem 1rem",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.6rem",
+                    transition: "background 0.25s ease",
+                    background: activeRow === i ? "rgba(79,127,255,0.06)" : "transparent",
+                  }}
+                >
+                  <span style={{ color: activeRow === i ? "#7af" : "var(--accent)", fontSize: "0.8rem", flexShrink: 0, filter: activeRow === i ? "drop-shadow(0 0 6px var(--accent))" : "none", transition: "all 0.2s" }}>✓</span>
+                  <span style={{ fontSize: "0.82rem", lineHeight: 1.5, color: activeRow === i ? "var(--white)" : "var(--off-white)", transition: "color 0.25s" }}>
+                    {pair.callisto}
+                  </span>
+                </div>
               </div>
             </div>
           ))}
@@ -222,6 +225,35 @@ export default function InfrastructureSection() {
           <a href="#watch-demo" className="btn-cta" style={{ flexShrink: 0 }}>Watch the Demo</a>
         </div>
       </div>
+
+      {/* Responsive: desktop restores 3-col layout */}
+      <style>{`
+        .compare-inner {
+          display: flex;
+          flex-direction: column;
+        }
+        .compare-cell-legacy {
+          border-right: none !important;
+        }
+        @media (min-width: 640px) {
+          .compare-inner {
+            display: grid;
+            grid-template-columns: 1fr 56px 1fr;
+          }
+          .compare-cell-legacy {
+            padding: 1rem 1.5rem !important;
+            border-right: 1px solid rgba(255,255,255,0.04) !important;
+            border-bottom: none !important;
+          }
+          .compare-cell-vs {
+            display: flex !important;
+          }
+          .compare-cell-callisto {
+            padding: 1rem 1.5rem !important;
+            border-left: 1px solid rgba(255,255,255,0.04) !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

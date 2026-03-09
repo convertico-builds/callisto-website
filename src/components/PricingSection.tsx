@@ -32,14 +32,15 @@ export default function PricingSection() {
           </p>
         </div>
 
-        {/* Two-column pricing layout */}
+        {/* Two-column pricing layout — stacks on mobile */}
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "1fr 1fr",
+            gridTemplateColumns: "1fr",
             gap: "1.5rem",
             alignItems: "stretch",
           }}
+          className="pricing-grid"
         >
           {/* LEFT — Pricing card */}
           <div
@@ -56,7 +57,7 @@ export default function PricingSection() {
             {/* Price header band */}
             <div
               style={{
-                padding: "2.5rem 2.5rem 2rem",
+                padding: "clamp(1.5rem, 4vw, 2.5rem) clamp(1.5rem, 4vw, 2.5rem) clamp(1.25rem, 3vw, 2rem)",
                 borderBottom: "1px solid rgba(79,127,255,0.1)",
                 background: "linear-gradient(135deg, rgba(79,127,255,0.08) 0%, rgba(168,85,247,0.04) 100%)",
               }}
@@ -74,7 +75,7 @@ export default function PricingSection() {
                   style={{
                     fontFamily: "var(--font-heading)",
                     fontWeight: 800,
-                    fontSize: "clamp(3.5rem, 6vw, 5rem)",
+                    fontSize: "clamp(3.2rem, 8vw, 5rem)",
                     lineHeight: 1,
                     background: "linear-gradient(135deg, #ffffff 40%, #7aa8ff 80%)",
                     WebkitBackgroundClip: "text",
@@ -113,7 +114,7 @@ export default function PricingSection() {
             </div>
 
             {/* Included feature list */}
-            <div style={{ padding: "1.75rem 2.5rem", flex: 1 }}>
+            <div style={{ padding: "clamp(1.25rem, 3vw, 1.75rem) clamp(1.5rem, 4vw, 2.5rem)", flex: 1 }}>
               <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--muted)", marginBottom: "1.25rem" }}>
                 Everything included
               </div>
@@ -128,7 +129,7 @@ export default function PricingSection() {
             </div>
 
             {/* CTA */}
-            <div style={{ padding: "0 2.5rem 2.5rem" }}>
+            <div style={{ padding: "0 clamp(1.5rem, 4vw, 2.5rem) clamp(1.25rem, 3vw, 2.5rem)" }}>
               <a href="#watch-demo" className="btn-cta" style={{ width: "100%", justifyContent: "center", display: "flex" }}>
                 Watch the Demo
               </a>
@@ -144,7 +145,7 @@ export default function PricingSection() {
                 borderRadius: "14px",
                 overflow: "hidden",
                 flex: 1,
-                minHeight: 280,
+                minHeight: 220,
                 border: "1px solid rgba(79,127,255,0.12)",
               }}
             >
@@ -152,7 +153,7 @@ export default function PricingSection() {
                 src="/pricing-visual.png"
                 alt="Callisto orbital platform"
                 fill
-                sizes="(max-width: 768px) 100vw, 50vw"
+                sizes="(max-width: 900px) 100vw, 50vw"
                 style={{ objectFit: "cover", objectPosition: "center" }}
               />
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(2,3,14,0.65) 0%, transparent 55%)" }} />
@@ -188,7 +189,7 @@ export default function PricingSection() {
                     style={{
                       fontFamily: "var(--font-heading)",
                       fontWeight: 700,
-                      fontSize: "1.3rem",
+                      fontSize: "clamp(1rem, 2.5vw, 1.3rem)",
                       background: "linear-gradient(135deg, #fff 30%, #7aa8ff 100%)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
@@ -207,6 +208,15 @@ export default function PricingSection() {
           </div>
         </div>
       </div>
+
+      {/* Desktop: side-by-side */}
+      <style>{`
+        @media (min-width: 900px) {
+          .pricing-grid {
+            grid-template-columns: 1fr 1fr !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

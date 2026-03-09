@@ -159,10 +159,18 @@ h1, h2, h3, h4, h5 {
 .btn-ghost:hover { border-color: var(--accent); color: var(--accent-light); }
 
 /* ─── Section wrapper ────────────────────────────────────────────── */
-.section { position: relative; z-index: 1; padding: 7rem 1.5rem; }
+/* Mobile-first: small padding on phones, bigger on desktop */
+.section { position: relative; z-index: 1; padding: 4.5rem 1rem; }
 .container { max-width: 1160px; margin: 0 auto; }
 .container-narrow { max-width: 860px; margin: 0 auto; }
 .container-wide { max-width: 1320px; margin: 0 auto; }
+
+@media (min-width: 640px) {
+  .section { padding: 5.5rem 1.25rem; }
+}
+@media (min-width: 1024px) {
+  .section { padding: 7rem 1.5rem; }
+}
 
 /* ─── Glass card ─────────────────────────────────────────────────── */
 .glass {
@@ -421,39 +429,49 @@ h1, h2, h3, h4, h5 {
 }
 .section-grid > * { position: relative; z-index: 1; }
 
-/* ─── Responsive ─────────────────────────────────────────────────── */
-@media (max-width: 900px) {
+/* ─── Responsive (mobile-first, min-width) ───────────────────────── */
+
+/* Comparison columns — stacked by default, side-by-side on tablet+ */
+.compare-col-left {
+  border-radius: 12px 12px 0 0;
+  border: 1px solid rgba(220,60,60,0.1);
+  border-bottom: none;
+  background: rgba(220,50,50,0.03);
+  padding: 1.25rem;
+}
+.compare-col-right {
+  border-radius: 0 0 12px 12px;
+  border: 1px solid rgba(79,127,255,0.14);
+  border-top: none;
+  background: rgba(79,127,255,0.04);
+  padding: 1.25rem;
+}
+.compare-row {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
   .compare-row {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
   .compare-col-left {
-    border-radius: 12px 12px 0 0;
-    border-right: 1px solid rgba(220,60,60,0.1);
-    border-bottom: none;
+    border-radius: 12px 0 0 12px;
+    border-right: none;
+    border-bottom: 1px solid rgba(220,60,60,0.1);
+    padding: 2rem;
   }
   .compare-col-right {
-    border-radius: 0 0 12px 12px;
-    border-left: 1px solid rgba(79,127,255,0.14);
-    border-top: none;
-  }
-  .section { padding: 5rem 1.25rem; }
-  h1 { font-size: clamp(3rem, 14vw, 8rem) !important; }
-  h2 { font-size: clamp(1.8rem, 6vw, 3rem) !important; }
-}
-
-/* Pricing section — responsive */
-@media (max-width: 768px) {
-  #pricing .container > div > div:last-child {
-    grid-template-columns: 1fr !important;
+    border-radius: 0 12px 12px 0;
+    border-left: none;
+    border-top: 1px solid rgba(79,127,255,0.14);
+    padding: 2rem;
   }
 }
 
-/* Comparison table — responsive */
-@media (max-width: 640px) {
+/* Comparison table — hide VS col on mobile, show on tablet+ */
+@media (min-width: 640px) {
   .compare-table .compare-row {
-    grid-template-columns: 1fr !important;
-  }
-  .compare-table .compare-row > div:nth-child(2) {
-    display: none;
+    grid-template-columns: 1fr 56px 1fr !important;
   }
 }
