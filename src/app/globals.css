@@ -1,0 +1,459 @@
+@import "tailwindcss";
+
+/* ─── Design Tokens ─────────────────────────────────────────────── */
+:root {
+  --bg:           #02030e;
+  --bg-2:         #060818;
+  --bg-3:         #080c22;
+  --surface:      rgba(255,255,255,0.04);
+  --surface-2:    rgba(255,255,255,0.07);
+  --border:       rgba(255,255,255,0.07);
+  --border-2:     rgba(255,255,255,0.13);
+  --border-3:     rgba(255,255,255,0.20);
+
+  --white:        #f0f2ff;
+  --off-white:    #c8cde8;
+  --muted:        #7b829e;
+  --muted-2:      #4e5368;
+
+  /* Brand */
+  --accent:       #4f7fff;
+  --accent-light: #7aa8ff;
+  --accent-glow:  rgba(79,127,255,0.22);
+
+  /* Agent colours */
+  --velocity:     #ff6b35;
+  --signal:       #00d4aa;
+  --oracle:       #a855f7;
+  --horizon:      #22d3ee;
+
+  /* Section accents */
+  --planet-1:     #4f7fff;
+  --planet-2:     #00d4aa;
+  --planet-3:     #a855f7;
+  --planet-4:     #ff6b35;
+  --planet-5:     #22d3ee;
+  --planet-6:     #f59e0b;
+
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body:    'Inter', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+}
+
+/* ─── Base ───────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ─── Star field canvas ──────────────────────────────────────────── */
+#star-field { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+/* ─── Typography ─────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--white);
+}
+
+/* ─── Eyebrow (reflect.app style) ───────────────────────────────── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  margin-bottom: 1.25rem;
+}
+.eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 1px;
+  background: var(--accent-light);
+}
+
+/* ─── Section label (smaller variant) ───────────────────────────── */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+.section-label::before {
+  content: '';
+  width: 16px; height: 1px;
+  background: var(--accent);
+}
+
+/* ─── CTA Button ─────────────────────────────────────────────────── */
+.btn-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2.25rem;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.005em;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 0 32px var(--accent-glow), 0 2px 8px rgba(0,0,0,0.4);
+  position: relative;
+  overflow: hidden;
+}
+.btn-cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+}
+.btn-cta:hover {
+  background: var(--accent-light);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 0 50px rgba(79,127,255,0.45), 0 8px 24px rgba(0,0,0,0.4);
+}
+.btn-cta:active { transform: translateY(0) scale(0.99); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  background: transparent;
+  color: var(--off-white);
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 0.9rem;
+  border: 1px solid var(--border-2);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent-light); }
+
+/* ─── Section wrapper ────────────────────────────────────────────── */
+.section { position: relative; z-index: 1; padding: 7rem 1.5rem; }
+.container { max-width: 1160px; margin: 0 auto; }
+.container-narrow { max-width: 860px; margin: 0 auto; }
+.container-wide { max-width: 1320px; margin: 0 auto; }
+
+/* ─── Glass card ─────────────────────────────────────────────────── */
+.glass {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* ─── Gradient text ──────────────────────────────────────────────── */
+.grad-text {
+  background: linear-gradient(135deg, var(--white) 0%, var(--accent-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Rock bullet ────────────────────────────────────────────────── */
+.rock-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.rock-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  color: var(--off-white);
+  line-height: 1.55;
+}
+.rock-list li::before {
+  content: '◈';
+  color: var(--accent);
+  font-size: 0.7rem;
+  margin-top: 0.28rem;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 4px var(--accent));
+}
+
+/* ─── Planet orb ─────────────────────────────────────────────────── */
+.planet {
+  border-radius: 50%;
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* ─── Comparison grid ────────────────────────────────────────────── */
+.compare-col-left {
+  border-radius: 12px 0 0 12px;
+  border: 1px solid rgba(220,60,60,0.1);
+  border-right: none;
+  background: rgba(220,50,50,0.03);
+  padding: 2rem;
+}
+.compare-col-right {
+  border-radius: 0 12px 12px 0;
+  border: 1px solid rgba(79,127,255,0.14);
+  border-left: none;
+  background: rgba(79,127,255,0.04);
+  padding: 2rem;
+}
+.compare-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 2px; }
+
+/* ─── Orbital system ─────────────────────────────────────────────── */
+.orbit-system {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  aspect-ratio: 1;
+}
+.orbit-ellipse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(79,127,255,0.08);
+}
+.orbit-planet {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  transform-origin: center;
+  cursor: default;
+}
+.orbit-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #7aa8ffcc, #1a3a8f55);
+  box-shadow: 0 0 60px rgba(79,127,255,0.4), 0 0 120px rgba(79,127,255,0.15);
+}
+
+/* ─── Feature planet card ────────────────────────────────────────── */
+.feature-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 2rem;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.feature-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--border-2);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+}
+
+/* ─── Browser chrome mockup ──────────────────────────────────────── */
+.browser-chrome {
+  background: #0e1128;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.browser-bar {
+  background: #13172e;
+  padding: 0.65rem 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.browser-dot { width: 9px; height: 9px; border-radius: 50%; }
+
+/* ─── Full width section ─────────────────────────────────────────── */
+.section-full {
+  position: relative;
+  z-index: 1;
+  padding: 7rem 0;
+}
+
+/* ─── Feature list item ──────────────────────────────────────────── */
+.feat-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.feat-item:last-child { border-bottom: none; }
+
+/* ─── Flip card ──────────────────────────────────────────────────── */
+.flip-wrapper { perspective: 1000px; }
+.flip-inner {
+  transition: transform 0.65s cubic-bezier(0.4,0,0.2,1);
+  transform-style: preserve-3d;
+  position: relative;
+}
+.flip-wrapper:hover .flip-inner { transform: rotateY(180deg); }
+.flip-front, .flip-back {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-back { transform: rotateY(180deg); }
+
+/* ─── Keyframe animations ────────────────────────────────────────── */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(79,127,255,0.3); }
+  50%       { box-shadow: 0 0 50px rgba(79,127,255,0.6), 0 0 80px rgba(79,127,255,0.2); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+@keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50%       { transform: scale(1.4); opacity: 1; }
+}
+
+/* ─── Section Break Dividers ─────────────────────────────────────── */
+/*
+  Sections alternate between two background tints so the eye gets a
+  clear break. Odd sections = pure bg. Even sections = bg-2 + subtle accent.
+*/
+#problem {
+  background: linear-gradient(180deg, rgba(220,50,50,0.03) 0%, transparent 100%);
+}
+#outcomes {
+  background: linear-gradient(180deg, rgba(200,140,60,0.04) 0%, transparent 40%, rgba(200,140,60,0.02) 100%);
+}
+#features {
+  background: rgba(79,127,255,0.02);
+}
+#insights {
+  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(79,127,255,0.07) 0%, transparent 70%);
+}
+#agents {
+  background: linear-gradient(180deg, rgba(79,127,255,0.04) 0%, rgba(168,85,247,0.03) 100%);
+}
+#infrastructure {
+  background: linear-gradient(180deg, rgba(79,127,255,0.04) 0%, transparent 60%);
+}
+#full-features {
+  background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(79,127,255,0.06) 0%, transparent 65%);
+}
+#pricing {
+  background: rgba(79,127,255,0.02);
+}
+#objections {
+  background: linear-gradient(180deg, transparent 0%, rgba(168,85,247,0.04) 50%, transparent 100%);
+}
+#final-cta {
+  background: linear-gradient(180deg, transparent 0%, rgba(79,127,255,0.08) 100%);
+}
+
+/* Glowing section divider line */
+.section::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 5%;
+  right: 5%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(79,127,255,0.25) 30%, rgba(168,85,247,0.2) 70%, transparent);
+  pointer-events: none;
+}
+.section-full::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(79,127,255,0.2) 30%, rgba(200,140,60,0.15) 70%, transparent);
+  pointer-events: none;
+}
+
+/* Dot grid overlay — subtle texture on dark sections */
+.section-grid {
+  position: relative;
+}
+.section-grid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(79,127,255,0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+.section-grid > * { position: relative; z-index: 1; }
+
+/* ─── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .compare-row {
+    grid-template-columns: 1fr;
+  }
+  .compare-col-left {
+    border-radius: 12px 12px 0 0;
+    border-right: 1px solid rgba(220,60,60,0.1);
+    border-bottom: none;
+  }
+  .compare-col-right {
+    border-radius: 0 0 12px 12px;
+    border-left: 1px solid rgba(79,127,255,0.14);
+    border-top: none;
+  }
+  .section { padding: 5rem 1.25rem; }
+  h1 { font-size: clamp(3rem, 14vw, 8rem) !important; }
+  h2 { font-size: clamp(1.8rem, 6vw, 3rem) !important; }
+}
+
+/* Pricing section — responsive */
+@media (max-width: 768px) {
+  #pricing .container > div > div:last-child {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Comparison table — responsive */
+@media (max-width: 640px) {
+  .compare-table .compare-row {
+    grid-template-columns: 1fr !important;
+  }
+  .compare-table .compare-row > div:nth-child(2) {
+    display: none;
+  }
+}
